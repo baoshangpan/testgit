@@ -1,0 +1,31 @@
+example: ./netspeed eth0
+
+  1 #!/bin/bash
+
+  2 
+  3 INTERVAL="1"  # update interval in seconds
+  4 
+  5 if [ -z "$1" ]; then
+  6 echo
+  7 echo usage: $0 [network-interface]
+  8 echo
+  9 echo e.g. $0 eth0
+ 10 echo
+ 11 exit
+ 12 fi
+ 13 
+ 14 IF=$1
+ 15 
+ 16 while true
+ 17 do
+ 18 R1=`cat /sys/class/net/$1/statistics/rx_bytes`
+ 19 T1=`cat /sys/class/net/$1/statistics/tx_bytes`
+ 20 sleep $INTERVAL
+ 21 R2=`cat /sys/class/net/$1/statistics/rx_bytes`
+ 22 T2=`cat /sys/class/net/$1/statistics/tx_bytes`
+ 23 TBPS=`expr $T2 - $T1`
+ 24 RBPS=`expr $R2 - $R1`
+ 25 TKBPS=`expr $TBPS / 1024`
+ 26 RKBPS=`expr $RBPS / 1024`
+ 27 echo "TX $1: $TKBPS kb/s RX $1: $RKBPS kb/s"
+ 28 done
