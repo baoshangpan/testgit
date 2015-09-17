@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+# Source from: wget freevps.us/downloads/bench.sh
+#
+clear
+echo "========================================"
+echo "No wait?! Press Ctrl+C Abort and Quit"
+echo "========================================"
+ 
+cachefly=$( wget -O /dev/null http://cachefly.cachefly.net/100mb.test 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from CacheFly: $cachefly "
+sldal=$( wget -O /dev/null http://speedtest.dal01.softlayer.com/downloads/test100.zip 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from Softlayer, Dallas, TX: $sldal "
+slwdc=$( wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from Softlayer, Washington, DC: $slwdc "
+slwa=$( wget -O /dev/null http://speedtest.sea01.softlayer.com/downloads/test100.zip 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from Softlayer, Seattle, WA: $slwa "
+slsjc=$( wget -O /dev/null http://speedtest.sjc01.softlayer.com/downloads/test100.zip 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from Softlayer, San Jose, CA: $slsjc "
+slsg=$( wget -O /dev/null http://speedtest.sng01.softlayer.com/downloads/test100.zip 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from Softlayer, Singapore: $slsg "
+linodedltx=$( wget -O /dev/null http://dallas1.linode.com/100MB-dallas.bin 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from Linode, Dallas, TX: $linodedltx "
+linodefremont=$( wget -O /dev/null http://fremont1.linode.com/100MB-fremont.bin 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from Linode, Fremont, CA: $linodefremont "
+linodenewark=$( wget -O /dev/null http://newark1.linode.com/100MB-newark.bin 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from Linode, Newark, NJ: $linodenewark "
+linodeatl=$( wget -O /dev/null http://atlanta1.linode.com/100MB-atlanta.bin 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from Linode, Atlanta GA: $linodeatl "
+linodejp=$( wget -O /dev/null http://tokyo1.linode.com/100MB-tokyo.bin 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from Linode, Tokyo, Japan: $linodejp "
+linodeuk=$( wget -O /dev/null http://london1.linode.com/100MB-london.bin 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from Linode, London, United Kingdom: $linodeuk "
+leaseweb=$( wget -O /dev/null http://mirror.leaseweb.com/speedtest/100mb.bin 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from LeaseWeb, Amsterdam, Netherlands: $leaseweb "
+leasewebde=$( wget -O /dev/null http://mirror.de.leaseweb.net/speedtest/100mb.bin 2&gt;&amp;1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+echo "Download speed from LeaseWeb, Frankfurt, Deutsche: $leasewebde "
