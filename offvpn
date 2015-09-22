@@ -1,0 +1,28 @@
+#!/bin/bash
+i=0
+m=0
+INTERVAL="10" 
+UUID=`nmcli con status | awk 'NR==3 {print}' |sed 's/^.\{26\}//g'|sed 's/[[:space:]].*$//g'`
+while [ "true" ]
+do
+    R1=`cat /sys/class/net/eth0/statistics/rx_bytes`
+    T1=`cat /sys/class/net/eth0/statistics/tx_bytes`
+    sleep $INTERVAL
+    R2=`cat /sys/class/net/eth0/statistics/rx_bytes`
+    T2=`cat /sys/class/net/eth0/statistics/tx_bytes`
+    TBPS=`expr $T2 - $T1`
+    RBPS=`expr $R2 - $R1`
+    TKBPS=`expr $TBPS / 1024`
+    RKBPS=`expr $RBPS / 1024`
+    echo "TX $1: $TKBPS kb/10s RX $1: $RKBPS kb/10s"
+    if [ $RKBPS -lt 30 ]; then
+        ((m++))
+        echo "Speed to low, trying to reconnect... $m"
+        (sleep 1s && nmcli con down uuid $UUID)
+        (sleep 5s && nmcli con up uuid $UUID)
+        (killall git && sleep 120s)
+    else
+        ((i++))
+        echo "Already connected ! $i"
+    fi
+done
