@@ -1,0 +1,11 @@
+#!/bin/bash
+userpath=/home/gongzuozhan
+filepath=$userpath/Documents/testgit1/first
+filesize=`cat $userpath/Documents/test | grep 'The file size' | sed 's/The file size is //g' | sed 's/ bytes//g'`
+print="The file size is $filesize bytes"
+echo $filesize
+grep -qc "The file size is" $filepath || echo "The file size is" >>$filepath
+sed -i 's/The file size is.*$/'"$print"'/' $filepath
+cd $userpath/Documents/testgit1
+git commit -a -m "upsize"
+git push
