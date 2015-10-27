@@ -1,3 +1,4 @@
+源码编译：在根目录下
 1.attempting build with unsurppoted jdk
   不能使用openjdk，卸载之，并安装oracleJdk
 2.build/core/base_rules.mk:134
@@ -18,3 +19,6 @@
   make
 7./bin/bash:javadoc not found
   ln -s -f /usr/local/java/jdk1.6.0_45/bin/javadoc
+内核编译：在指定内核文件夹（goldfish）
+SDK编译：在根目录下，make PRODUCT-sdk-sdk
+  需要下载tools/base和tools/swt
