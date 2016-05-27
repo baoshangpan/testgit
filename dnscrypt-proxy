@@ -1,0 +1,11 @@
+1.download libsodium-1.10 and install
+  $ ./configure
+  $ make && make check
+  # make install 
+2.download dnscrypt-proxy-1.6.1 and install
+  $ ./configure
+  $ make && make -j8
+  # make install
+3.$ dnscrypt-proxy -E -R 4armed --daemonize
+4.vi /etc/resolv.conf,change nameserver 127.0.0.1
+
