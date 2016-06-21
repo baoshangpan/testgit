@@ -1,0 +1,9 @@
+1.vi /etc/NetworkManager/NetworkManager.conf  
+  managed=true
+2.vi /etc/network/interfaces
+  auto eth0
+  iface eth0
+  address 192.168.0.40
+  netmask 255.255.255.0
+  gateway 192.168.0.1
+3.restart network-manager
