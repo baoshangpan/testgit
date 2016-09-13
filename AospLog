@@ -1,0 +1,37 @@
+2016.9.8
+	1.修改frameworks/base/ View.java 
+        DBG = false; -> DBG = true;
+   		VIEW_LOG_TAG = "View";	-> VIEW_LOG_TAG = "-->>View";
+		#此处改为-->>View,单独编译可以通过,整体编译会报错public_api.txt
+		public void sendAccessibilityEvent(int eventType) 添加Log.d
+		public boolean performClick() 添加Log.d
+		public boolean callOnClick()  添加Log.d
+	2.修改frameworks/base/ Activity.java
+		TAG = "Activity" -> TAG = "-->>Activity"
+		DEBUG_LIFECYCLE = false -> DEBUG_LIFECYCLE = true
+2016.9.11
+	1.删除packages/apps/Calendar,删除system/app/Calendar.apk和Calendar.odex
+		直接编译无法生成新system.img,删除system.img和system/app里的apk文件.
+		system.img大小由build/target/board/generic/BoardConfig.mk中的
+			BOARD_SYSTEMIMAGE_PARTITION_SIZE := 576720896 #大小必须为4096的倍数
+		不用删除,将app里的android.mk文件修改为不编译也可以不生成apk,达到裁剪效果,用此方法修改了Browser,Email,VideoEditor,InvisibleActivity,generic
+2016.9.12
+	1.删除build/target/board/generic/BoardConfig.mk中大小相关代码,system.img可改变大小,但是不能启动模拟器
+	2.修改packages/apps/Launcher2 Launcher3
+		TAG = "Launcher"; -> TAG = "-->Launcher2";
+		TAG = "Launcher"; -> TAG = "-->Launcher3";
+		在onCreate中添加Log.d(TAG, "onCreate: ");
+	3.不编译launcher2,改为launcher3,不成功
+	4.make clobber将out路径清空,重新编译,要将上述更改的packages/apps里的应用还原
+2016.9.13
+	1.Launcher3默认Android.mk无法单独编译,需执行以下步骤
+		删除$(call all-proto-files-under,
+		protos),LOCAL_PROTOC_OPTIMIZE_TYPE := nano
+		LOCAL_PROTOC_FLAGS := --proto_path=$(LOCAL_PATH)/protos/及后面几行关于proto的代码
+		删除LauncherBackupAgentHelper.java和LauncherBackupHelper.java文件
+		删除LauncherProvider.java中的LauncherBackupAgentHelper.dataChanged(getContext());
+	2.直接删除system/app里的apk,再make snod也可以达到裁剪效果
+	3.将bootanimation.zip放在out/.../system/media里面make snod可以自定义开机动画,desc.txt里的每个部分都要另起一行,最后一行也要有回车.
+	4.将自定义程序定为Launcher,在manifest.xml里添加category.HOME和category.DEFAULT,并删除category.LAUNCHER,注意使用singleTask和singleInstance
+
+		
