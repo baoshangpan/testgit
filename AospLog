@@ -33,5 +33,23 @@
 	2.直接删除system/app里的apk,再make snod也可以达到裁剪效果
 	3.将bootanimation.zip放在out/.../system/media里面make snod可以自定义开机动画,desc.txt里的每个部分都要另起一行,最后一行也要有回车.
 	4.将自定义程序定为Launcher,在manifest.xml里添加category.HOME和category.DEFAULT,并删除category.LAUNCHER,注意使用singleTask和singleInstance
+2016.9.18
+	1.packages/apps/settings Settings.java 
+		LOG_TAG = "Settings" --> LOG_TAG = "-->Settings"
+	2.packages/apps/settings SoundSettings.java 
+		TAG = "SoundSettings" -> TAG = "-->SoundSettings"
+	3.frameworks/base/core/ PreferenceActivity.java 
+		TAG = "PreferenceActivity" -> TAG = "-->PreferenceActivity"
+2016.9.19
+	1.packages/apps/settings SubSettings.java 
+		SubSettings -> -->SubSettings
+2016.9.20
+	1.frameworks/base/core ActionBarIml.java
+		TAG = "ActionBarImpl" -> TAG = "-->ActionBarImpl"
+	2.packages/apps/settings RingerVolumePreference.java
+		TAG = "RingerVolumePreference" -> TAG = "-->RingerVolumePreference"
 
+2016.9.22
+	1.frameworks/base/core VolumePreference.java
+		TAG = "VolumePreference" -> TAG = "-->VolumePreference"
 		
