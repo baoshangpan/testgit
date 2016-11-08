@@ -1,0 +1,50 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+echo
+echo usage: $0 [java-version]
+echo support java1.6 and java1.8
+echo e.g. $0 java1.6
+echo
+exit
+fi
+
+file=/home/gongzuozhan/Desktop/desk/profile
+profilefile=/etc/profile
+password=123456
+timeout=-1
+a=java1.6
+b=java1.8
+
+if [ "$1" = "$b" ];then
+number=3
+cat $file | sed -i '32s/^#export/export/g' $file
+cat $file | sed -i '31s/^export/#export/g' $file
+else 
+number=2
+cat $file | sed -i '31s/^#export/export/g' $file
+cat $file | sed -i '32s/^export/#export/g' $file
+fi
+
+expect<<EOF
+spawn sudo cp $file $profilefile   
+expect "*gongzuozhan:*"
+send "$password\r"
+expect eof
+
+spawn sudo update-alternatives --config java  
+expect "*gongzuozhan:*"
+send "$password\r"
+expect "*number:"
+send "$number\r"
+expect eof
+
+spawn sudo update-alternatives --config javac  
+expect "*gongzuozhan:*"
+send "$password\r"
+expect "*number:"
+send "$number\r"
+expect eof
+EOF
+
+
